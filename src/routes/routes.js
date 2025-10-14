@@ -8,6 +8,9 @@ const companyRoutes = require('./Company/companyRoutes');
 const branchRoutes = require('./Branch/branchRoutes');
 const cityRoutes = require('./City/cityRoutes');
 
+// Appointment
+const appointmentRoutes = require('./Appointment/appointmentRoutes');
+
 // Customer
 const customerRoutes = require('./Customer/customerRoutes');
 const customerCategoryRoutes = require('./Customer/customerCategoryRoutes');
@@ -38,6 +41,7 @@ router.use('/company', companyRoutes);
 router.use('/branch', branchRoutes);
 router.use('/city', cityRoutes);
 router.use('/driver', driverRoutes);
+router.use('/appointment', appointmentRoutes);
 
 router.use('/customer', customerRoutes);
 router.use('/customer-category', customerCategoryRoutes);

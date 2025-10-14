@@ -1,6 +1,6 @@
 {
 	"validation": {
-		"required": {
+			"required": {
 			"company_id": "Company ID is required",
 			"company_name": "Company name is required",
 			"phone_1": "Primary phone number is required",
@@ -13,6 +13,11 @@
 			"employee_id": "Employee ID is required",
 			"amount": "Amount is required",
 			"date": "Date is required",
+				"user_id": "User ID is required",
+				"appointment_date": "Appointment date is required",
+				"start_time": "Start time is required",
+				"end_time": "End time is required",
+				"note": "Note is required",
 			"city_name": "City name is required",
 			"customer_category_name": "Customer category name is required",
 			"customer_name": "Customer name is required",
@@ -49,6 +54,7 @@
 			"driver_name": "Driver name is required"
 		},
 		"invalid": {
+				"appointment_not_found": "Appointment not found",
 			"company_id": "Invalid Company ID",
 			"company_not_found": "Company not found",
 			"image_type": "Only image files are allowed (e.g., JPEG, PNG, GIF)",
@@ -110,10 +116,26 @@
 		}
 	},
 	"messages": {
+			"appointment_created": "Appointment successfully created",
+			"appointment_updated": "Appointment successfully updated",
+			"appointment_deleted": "Appointment successfully deleted",
+			"error_creating_appointment": "Error occurred while creating the appointment",
+			"error_fetching_appointments": "Error occurred while fetching appointments",
+			"error_fetching_appointment": "Error occurred while fetching the appointment",
+			"error_updating_appointment": "Error occurred while updating the appointment",
+			"error_deleting_appointment": "Error occurred while deleting the appointment",
 		"branch_created": "Branch successfully created",
 		"branch_updated": "Branch successfully updated",
 		"branch_deleted": "Branch successfully deleted",
 		"wallet_increased": "Amount successfully increased",
+			"table_created": "Table successfully created",
+			"table_updated": "Table successfully updated",
+			"table_deleted": "Table successfully deleted",
+			"error_creating_table": "Error occurred while creating the table",
+			"error_fetching_tables": "Error occurred while fetching tables",
+			"error_fetching_table": "Error occurred while fetching the table",
+			"error_updating_table": "Error occurred while updating the table",
+			"error_deleting_table": "Error occurred while deleting the table",
 		"wallet_decreased": "Amount successfully decreased",
 		"error_increasing_wallet": "Error occurred while increasing the amount",
 		"error_decreasing_wallet": "Error occurred while decreasing the amount",
