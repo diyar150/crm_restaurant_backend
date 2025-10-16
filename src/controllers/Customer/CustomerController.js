@@ -1,5 +1,4 @@
 const Customer = require('../../models/Customer/Customer');
-const Zone = require('../../models/Zone/Zone');
 const City = require('../../models/City/City'); // Assuming you have a City model
 const CustomerCategory = require('../../models/Customer/CustomerCategory');
 const i18n = require('../../config/i18nConfig');
