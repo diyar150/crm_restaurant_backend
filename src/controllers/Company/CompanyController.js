@@ -33,9 +33,8 @@ exports.create = [upload.single('logo_1'), (req, res) => {
     return res.status(400).json({ error: req.fileValidationError });
   }
 
-  if (!req.file && req.fileSizeError) {
-    return res.status(400).json({ error: i18n.__('validation.invalid.image_size') });
-  }
+  // multer will reject files that exceed limits and won't set req.file; if you need
+  // custom errors for size you can handle multer errors in an error-handling middleware.
 
     const { name, phone_1, phone_2, address, tagline, email, note } = req.body;
   const logo_1 = req.file ? `/uploads/${req.file.filename}` : null;
@@ -99,9 +98,8 @@ exports.update = [upload.single('logo_1'), (req, res) => {
     return res.status(400).json({ error: req.fileValidationError });
   }
 
-  if (!req.file && req.fileSizeError) {
-    return res.status(400).json({ error: i18n.__('validation.invalid.image_size') });
-  }
+  // multer enforces file size via limits; any size errors should be caught by multer's
+  // error handler (express error middleware). We don't rely on req.fileSizeError here.
 
   const { id } = req.params;
   const { name, phone_1, phone_2, address, tagline, email, note } = req.body;
@@ -125,10 +123,15 @@ exports.update = [upload.single('logo_1'), (req, res) => {
       logo_1 = result[0].logo_1;
     }
 
-  const companyData = { name, phone_1, phone_2, address, tagline, logo_1, email, note };
+    const companyData = { name, phone_1, phone_2, address, tagline, logo_1, email, note };
 
     Company.update(id, companyData, (err, updateResult) => {
-      if (err) return res.status(500).json({ error: i18n.__('messages.error_updating_company') });
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY' && err.sqlMessage.includes('name')) {
+          return res.status(400).json({ error: i18n.__('validation.unique.company_name') });
+        }
+        return res.status(500).json({ error: i18n.__('messages.error_updating_company') });
+      }
       if (updateResult.affectedRows === 0) {
         return res.status(404).json({ error: i18n.__('validation.invalid.company_not_found') });
       }

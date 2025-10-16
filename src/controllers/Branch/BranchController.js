@@ -36,8 +36,31 @@ exports.createBranch = (req, res) => {
 };
 
 exports.getBranchesByUser = (req, res) => {
-  // This method is obsolete, as user_id is not a column in the branch model.
-  return res.status(400).json({ error: 'user_id is not a valid column for branch.' });
+  const { userId } = req.params;
+  const User = require('../../models/User/User');
+
+  User.getById(userId, (err, userResult) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!userResult || userResult.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const user = userResult[0];
+
+    // If the user has a branch_id, return only that branch; otherwise return all branches
+    if (user.branch_id) {
+      Branch.getById(user.branch_id, (err2, branchRes) => {
+        if (err2) return res.status(500).json({ error: err2.message });
+        if (!branchRes || branchRes.length === 0) return res.status(404).json({ error: 'Branch not found' });
+        res.status(200).json(branchRes[0]);
+      });
+    } else {
+      Branch.getAll((err3, allBranches) => {
+        if (err3) return res.status(500).json({ error: err3.message });
+        res.status(200).json(allBranches);
+      });
+    }
+  });
 };
 
 

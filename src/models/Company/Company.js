@@ -3,8 +3,9 @@ const db = require('../../config/db'); // MySQL connection
 // Model for interacting with the 'companies' table
 class Company {
   static create(data, callback) {
+    // There are 8 columns, so we need 8 placeholders
     const query = `INSERT INTO company (name, phone_1, phone_2, address, tagline, logo_1, email, note)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     db.query(query, [
       data.name,
       data.phone_1,
@@ -34,9 +35,9 @@ class Company {
     });
   }
  
-  static getByName(id, callback) {
+  static getByName(name, callback) {
     const query = 'SELECT * FROM company WHERE name = ? AND deleted_at IS NULL'; // Exclude soft-deleted company
-    db.query(query, [id], callback);
+    db.query(query, [name], callback);
   }
 
   static update(id, data, callback) {

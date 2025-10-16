@@ -30,7 +30,7 @@ exports.create = [
       return res.status(400).json({ error: i18n.__('validation.invalid.image_type') });
     }
 
-const { name, username, phone, branch_id, password, is_system_user, is_agent, salary } = req.body;
+const { name, username, phone, branch_id, password, is_system_user, salary } = req.body;
     const image = req.file ? `/uploads/${req.file.filename}` : null;
 
     // Validate input
@@ -59,7 +59,6 @@ const { name, username, phone, branch_id, password, is_system_user, is_agent, sa
           image,
           branch_id,
           is_system_user: is_system_user ? 1 : 0,
-          is_agent: is_agent ? 1 : 0,
           salary: salary !== undefined ? salary : 0
         };
             if (password) {
@@ -119,7 +118,7 @@ exports.update = [
   (req, res) => {
     const { id } = req.params;
 
-const { name, username, phone, branch_id, password, is_system_user, is_agent, salary } = req.body;
+const { name, username, phone, branch_id, password, is_system_user, salary } = req.body;
     const image = req.file ? `/uploads/${req.file.filename}` : req.body.image; // keep old if not uploading new
   
     // Validate input
@@ -148,26 +147,30 @@ const { name, username, phone, branch_id, password, is_system_user, is_agent, sa
         image,
         branch_id,
         is_system_user: is_system_user ? 1 : 0,
-        is_agent: is_agent ? 1 : 0,
         salary: salary !== undefined ? salary : 0
       };
-          if (!password) {
-          // Fetch current user to get the existing password
-          User.getById(id, (err, userResult) => {
-            if (err || userResult.length === 0) {
-              return res.status(404).json({ error: i18n.__('validation.invalid.user_not_found') });
-            }
-            userData.password = userResult[0].password;
-            // ...call User.update here...
+      if (!password) {
+        // Fetch current user to get the existing password
+        User.getById(id, (err, userResult) => {
+          if (err || userResult.length === 0) {
+            return res.status(404).json({ error: i18n.__('validation.invalid.user_not_found') });
+          }
+          userData.password = userResult[0].password;
+          User.update(id, userData, (err, result) => {
+            if (err) return res.status(500).json({ error: i18n.__('messages.error_updating_user') });
+            if (result.affectedRows === 0) return res.status(404).json({ error: i18n.__('validation.invalid.user_not_found') });
+            res.status(200).json({ message: i18n.__('messages.user_updated') });
           });
-          return;
-        }
-       
-        User.update(id, userData, (err, result) => {
-          if (err) return res.status(500).json({ error: i18n.__('messages.error_updating_user') });
-          if (result.affectedRows === 0) return res.status(404).json({ error: i18n.__('validation.invalid.user_not_found') });
-          res.status(200).json({ message: i18n.__('messages.user_updated') });
         });
+        return;
+      }
+      // If password is provided, hash and update
+      userData.password = bcrypt.hashSync(password, 10);
+      User.update(id, userData, (err, result) => {
+        if (err) return res.status(500).json({ error: i18n.__('messages.error_updating_user') });
+        if (result.affectedRows === 0) return res.status(404).json({ error: i18n.__('validation.invalid.user_not_found') });
+        res.status(200).json({ message: i18n.__('messages.user_updated') });
+      });
       });
     });
   }

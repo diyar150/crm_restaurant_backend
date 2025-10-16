@@ -129,7 +129,7 @@ class Branch {
   }
 
   static deleteSoft(id, callback) {
-    const query = `UPDATE branch SET deleted_at = NOW() WHERE id = ?`;
+    const query = `UPDATE branch SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL`;
     db.query(query, [id], callback);
   }
 

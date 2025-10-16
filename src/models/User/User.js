@@ -2,7 +2,7 @@ const db = require('../../config/db');
 
 class User {
  static create(data, callback) {
-    const query = `INSERT INTO users (name, username, phone, image, branch_id, is_system_user, is_agent, password, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO users (name, username, phone, image, branch_id, is_system_user, password, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     const values = [
       data.name,
       data.username,
@@ -10,7 +10,6 @@ class User {
       data.image,
       data.branch_id,
       data.is_system_user,
-      data.is_agent || 0,
       data.password || null,
       data.salary || 0
     ];
@@ -45,7 +44,7 @@ class User {
     db.query(query, [id], callback);
   }
    static getAllAgents(callback) {
-    const query = 'SELECT * FROM users WHERE is_agent = 1 AND deleted_at IS NULL';
+    const query = 'SELECT * FROM users WHERE deleted_at IS NULL';
     db.query(query, callback);
   }
 
@@ -55,7 +54,7 @@ class User {
   }
 
   static update(id, data, callback) {
-    const query = `UPDATE users SET name = ?, username = ?, phone = ?, image = ?, branch_id = ?, password = ?, is_system_user = ?, is_agent = ?, salary = ?, updated_at = NOW()
+    const query = `UPDATE users SET name = ?, username = ?, phone = ?, image = ?, branch_id = ?, password = ?, is_system_user = ?, salary = ?, updated_at = NOW()
                    WHERE id = ? AND deleted_at IS NULL`;
     db.query(query, [
       data.name,
@@ -65,7 +64,6 @@ class User {
       data.branch_id,
       data.password,
       data.is_system_user,
-      data.is_agent || 0,
       data.salary !== undefined ? data.salary : 0,
       id
     ], callback);

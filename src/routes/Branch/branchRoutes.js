@@ -12,7 +12,9 @@ router.get('/index', authenticate, BranchController.getAllBranches);
 // Get a branch by ID
 router.get('/show/:id', authenticate, BranchController.getBranchById);
 
-// Removed obsolete user_id route; user_id is not a valid column in branch
+// Get branches by user
+router.get('/by-user/:userId', authenticate, BranchController.getBranchesByUser);
+
 
 // Filter branches
 router.get('/filter', authenticate,BranchController.filterBranches);

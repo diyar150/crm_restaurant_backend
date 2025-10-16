@@ -12,10 +12,6 @@ router.get('/index', authenticate, AppointmentController.getAllAppointments);
 // Get an appointment by ID
 router.get('/show/:id', authenticate, AppointmentController.getAppointmentById);
 
-
-// Filter appointments
-router.get('/filter', authenticate, AppointmentController.filterAppointments);
-
 // Update an appointment
 router.put('/update/:id', authenticate, AppointmentController.updateAppointment);
 
