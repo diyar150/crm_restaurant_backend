@@ -1,6 +1,6 @@
 {
 	"validation": {
-			"required": {
+		"required": {
 			"company_id": "Company ID is required",
 			"company_name": "Company name is required",
 			"phone_1": "Primary phone number is required",
@@ -13,11 +13,11 @@
 			"employee_id": "Employee ID is required",
 			"amount": "Amount is required",
 			"date": "Date is required",
-				"user_id": "User ID is required",
-				"appointment_date": "Appointment date is required",
-				"start_time": "Start time is required",
-				"end_time": "End time is required",
-				"note": "Note is required",
+			"user_id": "User ID is required",
+			"appointment_date": "Appointment date is required",
+			"start_time": "Start time is required",
+			"end_time": "End time is required",
+			"note": "Note is required",
 			"city_name": "City name is required",
 			"customer_category_name": "Customer category name is required",
 			"customer_name": "Customer name is required",
@@ -36,7 +36,6 @@
 			"price_type_id": "Price type ID is required",
 			"price": "Price is required",
 			"item_price_size_name": "Item price size name is required",
-
 			"item_size_name": "Item size name is required",
 			"user_name": "User name is required",
 			"username": "Username is required",
@@ -47,14 +46,14 @@
 			"fields": "All required fields must be provided",
 			"user_image": "User image is required",
 			"search": "Search term is required.",
-
 			"amount_from": "Amount from is required",
 			"amount_to": "Amount to is required",
-
-			"driver_name": "Driver name is required"
+			"driver_name": "Driver name is required",
+			"capacity": "validation.required.capacity",
+			"state": "validation.required.state"
 		},
 		"invalid": {
-				"appointment_not_found": "Appointment not found",
+			"appointment_not_found": "Appointment not found",
 			"company_id": "Invalid Company ID",
 			"company_not_found": "Company not found",
 			"image_type": "Only image files are allowed (e.g., JPEG, PNG, GIF)",
@@ -86,12 +85,11 @@
 			"password": "Invalid password",
 			"token": "Invalid token.",
 			"salary_not_found": "Salary not found",
-
 			"item_size": "validation.invalid.item_size",
-
 			"sell_invoice": "Invalid sell invoice",
 			"sell_item_not_found": "Sell item not found",
-			"driver_not_found": "Driver not found"
+			"driver_not_found": "Driver not found",
+			"table_not_found": "validation.invalid.table_not_found"
 		},
 		"unique": {
 			"branch_name": "Branch name already exists",
@@ -116,26 +114,26 @@
 		}
 	},
 	"messages": {
-			"appointment_created": "Appointment successfully created",
-			"appointment_updated": "Appointment successfully updated",
-			"appointment_deleted": "Appointment successfully deleted",
-			"error_creating_appointment": "Error occurred while creating the appointment",
-			"error_fetching_appointments": "Error occurred while fetching appointments",
-			"error_fetching_appointment": "Error occurred while fetching the appointment",
-			"error_updating_appointment": "Error occurred while updating the appointment",
-			"error_deleting_appointment": "Error occurred while deleting the appointment",
+		"appointment_created": "Appointment successfully created",
+		"appointment_updated": "Appointment successfully updated",
+		"appointment_deleted": "Appointment successfully deleted",
+		"error_creating_appointment": "Error occurred while creating the appointment",
+		"error_fetching_appointments": "Error occurred while fetching appointments",
+		"error_fetching_appointment": "Error occurred while fetching the appointment",
+		"error_updating_appointment": "Error occurred while updating the appointment",
+		"error_deleting_appointment": "Error occurred while deleting the appointment",
 		"branch_created": "Branch successfully created",
 		"branch_updated": "Branch successfully updated",
 		"branch_deleted": "Branch successfully deleted",
 		"wallet_increased": "Amount successfully increased",
-			"table_created": "Table successfully created",
-			"table_updated": "Table successfully updated",
-			"table_deleted": "Table successfully deleted",
-			"error_creating_table": "Error occurred while creating the table",
-			"error_fetching_tables": "Error occurred while fetching tables",
-			"error_fetching_table": "Error occurred while fetching the table",
-			"error_updating_table": "Error occurred while updating the table",
-			"error_deleting_table": "Error occurred while deleting the table",
+		"table_created": "Table successfully created",
+		"table_updated": "Table successfully updated",
+		"table_deleted": "Table successfully deleted",
+		"error_creating_table": "Error occurred while creating the table",
+		"error_fetching_tables": "Error occurred while fetching tables",
+		"error_fetching_table": "Error occurred while fetching the table",
+		"error_updating_table": "Error occurred while updating the table",
+		"error_deleting_table": "Error occurred while deleting the table",
 		"wallet_decreased": "Amount successfully decreased",
 		"error_increasing_wallet": "Error occurred while increasing the amount",
 		"error_decreasing_wallet": "Error occurred while decreasing the amount",
@@ -287,7 +285,6 @@
 		"error_fetching_invoices": "Error occurred while fetching invoices",
 		"no_invoices_found": "No invoices found",
 		"invoices_found": "{count} invoices found",
-
 		"sell_item_created": "Sell item successfully created",
 		"sell_item_updated": "Sell item successfully updated",
 		"sell_item_deleted": "Sell item successfully deleted",
@@ -297,7 +294,7 @@
 		"error_fetching_sell_items": "Error occurred while fetching sell items",
 		"error_fetching_sell_item": "Error occurred while fetching the sell item",
 		"error_updating_inventory": "Error occurred while updating inventory",
-	    "error_creating_driver": "Error occurred while creating driver",
+		"error_creating_driver": "Error occurred while creating driver",
 		"error_fetching_drivers": "Error occurred while fetching drivers",
 		"error_fetching_driver": "Error occurred while fetching driver",
 		"error_updating_driver": "Error occurred while updating driver",
@@ -305,10 +302,5 @@
 		"driver_created": "Driver created successfully",
 		"driver_updated": "Driver updated successfully",
 		"driver_deleted": "Driver deleted successfully"
-
 	}
-
-
-
-
 }

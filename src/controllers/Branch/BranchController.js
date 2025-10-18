@@ -5,7 +5,7 @@ const i18n = require('../../config/i18nConfig');
 
 // Create branch
 exports.createBranch = (req, res) => {
-  const { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, opening_date, state } = req.body;
+  const { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, state } = req.body;
 
   // Validate required fields
   if (!company_id) {
@@ -21,8 +21,8 @@ exports.createBranch = (req, res) => {
       return res.status(400).json({ error: i18n.__('validation.invalid.company_id') });
     }
 
-    // Create branch record
-    const branchData = { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, opening_date, state };
+  // Create branch record
+  const branchData = { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, state };
     Branch.create(branchData, (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
@@ -34,6 +34,7 @@ exports.createBranch = (req, res) => {
     });
   });
 };
+
 
 exports.getBranchesByUser = (req, res) => {
   const { userId } = req.params;
@@ -63,8 +64,6 @@ exports.getBranchesByUser = (req, res) => {
   });
 };
 
-
-
 // Get All Branches
 exports.getAllBranches = (req, res) => {
   Branch.getAll((err, results) => {
@@ -72,6 +71,7 @@ exports.getAllBranches = (req, res) => {
     res.status(200).json(results);
   });
 };
+
 exports.filterBranches = (req, res) => {
   const filters = {
     id: req.query.id,
@@ -110,7 +110,7 @@ exports.getBranchById = (req, res) => {
 // Update Branch
 exports.updateBranch = (req, res) => {
   const { id } = req.params;
-  const { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, opening_date, state } = req.body;
+  const { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, state } = req.body;
 
   // Validate required fields
   if (!company_id) {
@@ -126,8 +126,8 @@ exports.updateBranch = (req, res) => {
       return res.status(400).json({ error: i18n.__('validation.invalid.company_id') });
     }
 
-    // Update branch record
-    const branchData = { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, opening_date, state };
+  // Update branch record
+  const branchData = { company_id, name, address, latitude, longitude, radius_meters, wallet, city_id, state };
     Branch.update(id, branchData, (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {

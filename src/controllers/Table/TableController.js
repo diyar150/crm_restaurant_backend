@@ -3,7 +3,7 @@ const i18n = require('../../config/i18nConfig');
 
 // Create table
 exports.createTable = (req, res) => {
-  const { branch_id, table_number, capacity, state } = req.body;
+  const { branch_id, table_number, capacity } = req.body;
 
   // Validate required fields
   if (!branch_id) {
@@ -15,11 +15,8 @@ exports.createTable = (req, res) => {
   if (!capacity) {
     return res.status(400).json({ error: i18n.__('validation.required.capacity') });
   }
-  if (!state) {
-    return res.status(400).json({ error: i18n.__('validation.required.state') });
-  }
 
-  const tableData = { branch_id, table_number, capacity, state };
+  const tableData = { branch_id, table_number, capacity };
   Table.create(tableData, (err, result) => {
     if (err) {
       return res.status(500).json({ error: i18n.__('messages.error_creating_table') });
@@ -55,7 +52,7 @@ exports.getTableById = (req, res) => {
 // Update table
 exports.updateTable = (req, res) => {
   const { id } = req.params;
-  const { branch_id, table_number, capacity, state } = req.body;
+  const { branch_id, table_number, capacity } = req.body;
 
   // Validate required fields
   if (!branch_id) {
@@ -67,11 +64,8 @@ exports.updateTable = (req, res) => {
   if (!capacity) {
     return res.status(400).json({ error: i18n.__('validation.required.capacity') });
   }
-  if (!state) {
-    return res.status(400).json({ error: i18n.__('validation.required.state') });
-  }
 
-  const tableData = { branch_id, table_number, capacity, state };
+  const tableData = { branch_id, table_number, capacity };
   Table.update(id, tableData, (err, result) => {
     if (err) {
       return res.status(500).json({ error: i18n.__('messages.error_updating_table') });
