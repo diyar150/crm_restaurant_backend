@@ -3,7 +3,7 @@ const i18n = require('../../config/i18nConfig');
 
 // Create printer
 exports.createPrinter = (req, res) => {
-  const { name, branch_id, state } = req.body;
+  const { name, branch_id } = req.body;
 
   // Validate required fields
   if (!name) {
@@ -11,7 +11,7 @@ exports.createPrinter = (req, res) => {
   }
 
   // Prepare data for saving
-  const printerData = { name, branch_id, state };
+  const printerData = { name, branch_id };
 
   Printer.create(printerData, (err, result) => {
     if (err) {
@@ -51,14 +51,14 @@ exports.getPrinterById = (req, res) => {
 // Update printer
 exports.updatePrinter = (req, res) => {
   const { id } = req.params;
-  const { name, branch_id, state } = req.body;
+  const { name, branch_id } = req.body;
 
   // Validate required fields
   if (!name) {
     return res.status(400).json({ error: i18n.__('validation.required.printer_name') });
   }
 
-  const printerData = { name, branch_id, state };
+  const printerData = { name, branch_id };
   Printer.update(id, printerData, (err, result) => {
     if (err) {
       if (err.code === 'ER_DUP_ENTRY' && err.sqlMessage && err.sqlMessage.includes('name')) {

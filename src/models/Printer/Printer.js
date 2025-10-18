@@ -3,9 +3,9 @@ const db = require('../../config/db');
 
 class Printer {
   static create(data, callback) {
-    const query = `INSERT INTO printer (name, branch_id, state, created_at, updated_at)
-                   VALUES (?, ?, ?, NOW(), NOW())`;
-    const values = [data.name, data.branch_id, data.state];
+    const query = `INSERT INTO printer (name, branch_id, created_at, updated_at)
+                   VALUES (?, ?, NOW(), NOW())`;
+    const values = [data.name, data.branch_id];
     db.query(query, values, callback);
   }
 
@@ -20,9 +20,9 @@ class Printer {
   }
 
   static update(id, data, callback) {
-    const query = `UPDATE printer SET name = ?, branch_id = ?, state = ?, updated_at = NOW()
+    const query = `UPDATE printer SET name = ?, branch_id = ?, updated_at = NOW()
                    WHERE id = ? AND deleted_at IS NULL`;
-    const values = [data.name, data.branch_id, data.state, id];
+    const values = [data.name, data.branch_id, id];
     db.query(query, values, callback);
   }
 
