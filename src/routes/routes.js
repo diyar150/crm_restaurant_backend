@@ -1,15 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-// Company & Capital
-const companyRoutes = require('./Company/companyRoutes');
 
-// Branch, Warehouse, City, Zone, Region ,Driver
-const branchRoutes = require('./Branch/branchRoutes');
-const userRoutes = require('./User/userRoutes');
-const cityRoutes = require('./City/cityRoutes');
-const tableRoutes = require('./Table/tableRoutes');
-const print = require('./Printer/printerRoutes');
+// Route usage
+router.use('/company', require('./Company/companyRoutes'));
+router.use('/branch', require('./Branch/branchRoutes'));
+router.use('/user', require('./User/userRoutes'));
+router.use('/city', require('./City/cityRoutes'));
+router.use('/table', require('./Table/tableRoutes'));
+router.use('/printer', require('./Printer/printerRoutes'));
+router.use('/company-delivery', require('./CompanyDelivery/companyDeliveryRoutes'));
+
+
+
+
 
 // Appointment
 // const appointmentRoutes = require('./Appointment/appointmentRoutes');
@@ -37,17 +41,6 @@ const print = require('./Printer/printerRoutes');
 // const sellInvoiceRoutes = require('./Sell/sellInvoiceRoutes');
 // const sellItemRoutes = require('./Sell/sellItemRoutes');
 
-
-// Route usage
-router.use('/company', companyRoutes);
-router.use('/branch', branchRoutes);
-router.use('/user', userRoutes);
-router.use('/city', cityRoutes);
-router.use('/table', tableRoutes);
-router.use('/printer', print);
-
-// router.use('/driver', driverRoutes);
-// router.use('/appointment', appointmentRoutes);
 
 // router.use('/customer', customerRoutes);
 // router.use('/customer-category', customerCategoryRoutes);

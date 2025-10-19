@@ -49,8 +49,12 @@
 			"amount_from": "Amount from is required",
 			"amount_to": "Amount to is required",
 			"driver_name": "Driver name is required",
-			"capacity": "validation.required.capacity",
-			"state": "validation.required.state"
+			"capacity": "Capacity is required",
+			"state": "State is required",
+			"table_number": "Table number is required",
+			"printer_name": "Printer name is required",
+			"company_delivery_name": "Company delivery name is required",
+			"company_delivery_type": "Company delivery type is required"
 		},
 		"invalid": {
 			"appointment_not_found": "Appointment not found",
@@ -89,7 +93,9 @@
 			"sell_invoice": "Invalid sell invoice",
 			"sell_item_not_found": "Sell item not found",
 			"driver_not_found": "Driver not found",
-			"table_not_found": "validation.invalid.table_not_found"
+			"table_not_found": "Table not found",
+			"printer_not_found": "Printer not found",
+			"company_delivery_not_found": "Company delivery not found"
 		},
 		"unique": {
 			"branch_name": "Branch name already exists",
@@ -148,9 +154,17 @@
 		"error_fetching_city": "Error occurred while fetching the city",
 		"error_updating_city": "Error occurred while updating the city",
 		"error_deleting_city": "Error occurred while deleting the city",
-		"printer_created": "Printer successfully created",
+	"printer_created": "Printer successfully created",
 		"printer_updated": "Printer successfully updated",
-		"printer_deleted": "Printer successfully deleted",
+	"printer_deleted": "Printer successfully deleted",
+	"company_delivery_created": "Company delivery successfully created",
+	"company_delivery_updated": "Company delivery successfully updated",
+	"company_delivery_deleted": "Company delivery successfully deleted",
+	"error_creating_company_delivery": "Error occurred while creating the company delivery",
+	"error_fetching_company_deliveries": "Error occurred while fetching company deliveries",
+	"error_fetching_company_delivery": "Error occurred while fetching the company delivery",
+	"error_updating_company_delivery": "Error occurred while updating the company delivery",
+	"error_deleting_company_delivery": "Error occurred while deleting the company delivery",
 		"error_creating_printer": "Error occurred while creating the printer",
 		"error_fetching_printers": "Error occurred while fetching printers",
 		"error_fetching_printer": "Error occurred while fetching the printer",
