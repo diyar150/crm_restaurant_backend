@@ -4,7 +4,7 @@ const i18n = require('../../config/i18nConfig');
 
 // Create Expense
 exports.createExpense = async (req, res) => {
-  const { category_id, name, amount, note, branch_id, user_id, expense_date } = req.body;
+  const { category_id, name, amount, note, branch_id, user_id, expense_date,employee_id } = req.body;
 
   // Validate required fields
   if (!category_id) return res.status(400).json({ error: i18n.__('validation.required.expense_category_id') });
@@ -24,7 +24,8 @@ exports.createExpense = async (req, res) => {
       amount: parseFloat(amount),
       note,
       branch_id,
-      user_id,
+      user_id: user_id || null,
+      employee_id: employee_id || null,
       expense_date
     };
 
@@ -32,7 +33,9 @@ exports.createExpense = async (req, res) => {
       if (err) {
         return res.status(500).json({ error: i18n.__('messages.error_creating_expense') });
       }
-      Branch.decreaseWallet(branch_id, amount, (err) => {
+      // Use numeric amount when adjusting branch wallet
+      const numericAmount = parseFloat(amount) || 0;
+      Branch.decreaseWallet(branch_id, numericAmount, (err) => {
         if (err) {
           return res.status(500).json({ error: i18n.__('messages.error_decreasing_wallet') });
         }
@@ -79,7 +82,8 @@ exports.getExpensesByFilters = (req, res) => {
     !filters.name &&
     !filters.note &&
     !filters.branch_id &&
-    !filters.user_id
+    !filters.user_id &&
+    !filters.employee_id
   ) {
     return res.status(400).json({ error: i18n.__('validation.required.at_least_one_filter') });
   }
@@ -96,7 +100,7 @@ exports.getExpensesByFilters = (req, res) => {
 // Update Expense
 exports.updateExpense = (req, res) => {
   const { id } = req.params;
-  const { category_id, name, amount, note, branch_id, user_id, expense_date } = req.body;
+  const { category_id, name, amount, note, branch_id, user_id, expense_date, employee_id } = req.body;
 
   // Validate required fields
   if (!category_id) return res.status(400).json({ error: i18n.__('validation.required.expense_category_id') });
@@ -125,7 +129,8 @@ exports.updateExpense = (req, res) => {
         amount: newAmount,
         note,
         branch_id,
-        user_id,
+        user_id: user_id || null,
+        employee_id: employee_id || null,
         expense_date
       };
 
@@ -136,10 +141,17 @@ exports.updateExpense = (req, res) => {
         if (result.affectedRows === 0) {
           return res.status(404).json({ error: i18n.__('validation.invalid.expense_not_found') });
         }
-        // Adjust the wallet amount in the branch
-        if (amountDifference !== 0) {
+        // Adjust the wallet amount in the branch:
+        // if newAmount > oldAmount => decrease wallet by difference
+        // if newAmount < oldAmount => increase wallet by abs(difference)
+        if (amountDifference > 0) {
           Branch.decreaseWallet(branch_id, amountDifference, (err) => {
             if (err) return res.status(500).json({ error: i18n.__('messages.error_decreasing_wallet') });
+            res.status(200).json({ message: i18n.__('messages.expense_updated') });
+          });
+        } else if (amountDifference < 0) {
+          Branch.increaseWallet(branch_id, Math.abs(amountDifference), (err) => {
+            if (err) return res.status(500).json({ error: i18n.__('messages.error_increasing_wallet') });
             res.status(200).json({ message: i18n.__('messages.expense_updated') });
           });
         } else {

@@ -12,7 +12,9 @@ router.use('/printer', require('./Printer/printerRoutes'));
 router.use('/company-delivery', require('./CompanyDelivery/companyDeliveryRoutes'));
 
 
-
+// Expenses
+router.use('/expenses-category', require('./Expenses/expensesCategoryRoutes'));
+router.use('/expenses', require('./Expenses/expensesRoutes'));
 
 
 // Appointment
@@ -25,9 +27,7 @@ router.use('/company-delivery', require('./CompanyDelivery/companyDeliveryRoutes
 // // User & Salary
 // const userRoutes = require('./User/userRoutes');
 
-// // Expenses
-// const expensesCategoryRoutes = require('./Expenses/expensesCategoryRoutes');
-// const expensesRoutes = require('./Expenses/expensesRoutes');
+
 
 // // Item
 // const itemRoutes = require('./Item/itemRoutes');
@@ -48,8 +48,7 @@ router.use('/company-delivery', require('./CompanyDelivery/companyDeliveryRoutes
 
 
 
-// router.use('/expenses-category', expensesCategoryRoutes);
-// router.use('/expenses', expensesRoutes);
+
 
 // router.use('/item', itemRoutes);
 // router.use('/item-category', itemCategoryRoutes);

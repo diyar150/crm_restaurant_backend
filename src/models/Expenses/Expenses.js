@@ -2,8 +2,8 @@ const db = require('../../config/db');
 
 class Expense {
   static create(data, callback) {
-    const query = `INSERT INTO expenses (category_id, name, amount, note, branch_id, user_id, expense_date, created_at, updated_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`;
+    const query = `INSERT INTO expenses (category_id, name, amount, note, branch_id, user_id, expense_date, employee_id, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`;
     const values = [
       data.category_id,
       data.name,
@@ -11,23 +11,24 @@ class Expense {
       data.note,
       data.branch_id,
       data.user_id,
-      data.expense_date
+      data.expense_date,
+      data.employee_id
     ];
     db.query(query, values, callback);
   }
 
   static getAll(callback) {
-    const query = `SELECT id, category_id, name, amount, note, branch_id, user_id, expense_date, created_at, updated_at, deleted_at FROM expenses WHERE deleted_at IS NULL ORDER BY id DESC`;
+    const query = `SELECT id, category_id, name, amount, note, branch_id, user_id, expense_date, employee_id, created_at, updated_at, deleted_at FROM expenses WHERE deleted_at IS NULL ORDER BY id DESC`;
     db.query(query, callback);
   }
 
   static getById(id, callback) {
-    const query = `SELECT id, category_id, name, amount, note, branch_id, user_id, expense_date, created_at, updated_at, deleted_at FROM expenses WHERE id = ? AND deleted_at IS NULL`;
+    const query = `SELECT id, category_id, name, amount, note, branch_id, user_id, expense_date, employee_id, created_at, updated_at, deleted_at FROM expenses WHERE id = ? AND deleted_at IS NULL`;
     db.query(query, [id], callback);
   }
 
   static update(id, data, callback) {
-    const query = `UPDATE expenses SET category_id = ?, name = ?, amount = ?, note = ?, branch_id = ?, user_id = ?, expense_date = ?, updated_at = NOW()
+    const query = `UPDATE expenses SET category_id = ?, name = ?, amount = ?, note = ?, branch_id = ?, user_id = ?, expense_date = ?, employee_id = ?, updated_at = NOW()
                    WHERE id = ? AND deleted_at IS NULL`;
     const values = [
       data.category_id,
@@ -37,6 +38,7 @@ class Expense {
       data.branch_id,
       data.user_id,
       data.expense_date,
+      data.employee_id,
       id
     ];
     db.query(query, values, callback);
@@ -48,7 +50,7 @@ class Expense {
   }
 
   static getByFilters(filters, callback) {
-    let query = `SELECT SQL_CALC_FOUND_ROWS id, category_id, name, amount, note, branch_id, user_id, expense_date, created_at, updated_at, deleted_at FROM expenses WHERE deleted_at IS NULL`;
+    let query = `SELECT SQL_CALC_FOUND_ROWS id, category_id, name, amount, note, branch_id, user_id, expense_date, employee_id, created_at, updated_at, deleted_at FROM expenses WHERE deleted_at IS NULL`;
     const values = [];
 
     // Filter by id (if present, ignore other filters)
@@ -76,6 +78,11 @@ class Expense {
         query += ` AND user_id = ?`;
         values.push(filters.user_id);
       }
+      // Employee filter
+      if (filters.employee_id) {
+        query += ` AND employee_id = ?`;
+        values.push(filters.employee_id);
+      }
       // Name or note search (OR logic)
       const orConditions = [];
       const orValues = [];
@@ -99,7 +106,7 @@ class Expense {
 
     // Whitelist allowed columns to prevent SQL injection
     const allowedSortFields = [
-      'id', 'expense_date', 'amount', 'name', 'category_id', 'branch_id', 'user_id'
+      'id', 'expense_date', 'amount', 'name', 'category_id', 'branch_id', 'user_id', 'employee_id', 'created_at', 'updated_at'
     ];
     if (!allowedSortFields.includes(sortBy)) sortBy = 'id';
 
