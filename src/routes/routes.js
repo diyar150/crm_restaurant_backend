@@ -16,6 +16,9 @@ router.use('/company-delivery', require('./CompanyDelivery/companyDeliveryRoutes
 router.use('/expenses-category', require('./Expenses/expensesCategoryRoutes'));
 router.use('/expenses', require('./Expenses/expensesRoutes'));
 
+// salary
+router.use('/salary', require('./Salary/salaryRoutes'));
+
 
 // Appointment
 // const appointmentRoutes = require('./Appointment/appointmentRoutes');
