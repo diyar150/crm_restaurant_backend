@@ -54,7 +54,12 @@
 			"table_number": "Table number is required",
 			"printer_name": "Printer name is required",
 			"company_delivery_name": "Company delivery name is required",
-			"company_delivery_type": "Company delivery type is required"
+			"company_delivery_type": "Company delivery type is required",
+			"customer_phone": "Customer phone number is required",
+			"expense_category_id": "Expense category ID is required",
+			"invoice_id": "Invoice ID is required",
+			"currency_id": "Currency ID is required",
+			"at_least_one_filter": "At least one filter is required"
 		},
 		"invalid": {
 			"appointment_not_found": "Appointment not found",

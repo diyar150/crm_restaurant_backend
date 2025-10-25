@@ -19,6 +19,12 @@ router.use('/expenses', require('./Expenses/expensesRoutes'));
 // salary
 router.use('/salary', require('./Salary/salaryRoutes'));
 
+// Appointments
+router.use('/appointment', require('./Appointment/appointmentRoutes'));
+
+
+
+
 
 // Appointment
 // const appointmentRoutes = require('./Appointment/appointmentRoutes');
