@@ -54,7 +54,18 @@ exports.getAppointmentsByFilters = (req, res) => {
   const filters = req.query;
 
   // Optional: require at least one filter to avoid returning huge datasets
-  if (!filters.id && !filters.startDate && !filters.endDate && !filters.branch_id && !filters.user_id && !filters.employee_id && !filters.name && !filters.description) {
+  if (
+    !filters.id && 
+    !filters.startDate && 
+    !filters.endDate && 
+    !filters.branch_id && 
+    !filters.user_id && 
+    !filters.employee_id && 
+    !filters.name && 
+    !filters.table_id && 
+    !filters.customer_name && 
+    !filters.customer_phone
+  ) {
     return res.status(400).json({ error: i18n.__('validation.required.at_least_one_filter') });
   }
 
