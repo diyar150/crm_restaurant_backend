@@ -22,7 +22,9 @@ router.use('/salary', require('./Salary/salaryRoutes'));
 // Appointments
 router.use('/appointment', require('./Appointment/appointmentRoutes'));
 
-
+// item and item category
+router.use('/item-category', require('./Item/itemCategoryRoutes'));
+//router.use('/item', require('./Item/itemRoutes'));
 
 
 
